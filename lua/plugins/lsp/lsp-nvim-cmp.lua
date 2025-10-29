@@ -1,65 +1,4 @@
 return {
-    -- 🧠 Syntax Highlighting & Parsing: nvim-treesitter
-    {
-        "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
-        opts = {
-            ensure_installed = { "lua", "vim", "vimdoc", "html", "css", "javascript", "json", "typescript" },
-            highlight = { enable = true },
-            indent = { enable = true },
-            autotag = { enable = true },
-        },
-        config = function(_, opts)
-        -- The config function runs on startup
-        require("nvim-treesitter.configs").setup(opts)
-        end,
-    },
-
-    {
-        "windwp/nvim-ts-autotag",
-        event = "InsertEnter",
-        opts = {},
-    },
-
-
-    -- 🗣️ Language Server Protocol: nvim-lspconfig
-    {
-        "neovim/nvim-lspconfig",
-        dependencies = {
-            "williamboman/mason.nvim",  -- Manages language servers
-            "williamboman/mason-lspconfig.nvim", -- Bridges mason and lspconfig
-        },
-        config = function()
-        require("mason").setup()
-        require("mason-lspconfig").setup({
-            -- Automatically install these language servers
-            ensure_installed = { "lua_ls", "jsonls", "html", "cssls", "vtsls" },
-        })
-
-        -- Global LSP keymaps
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'LSP Go to Definition' })
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'LSP Hover Documentation' })
-
-        -- IMPORTANT: You will need to setup individual LSPs here later, e.g.:
-        -- require("lspconfig").lua_ls.setup {}
-        -- use vim.lsp.config instead
-        --require("lspconfig").vtsls.setup({
-        --	capabilities = cmp_nvim_lsp.default_capabilities()
-        --})
-        require("lspconfig").lua_ls.setup {}
-        require("lspconfig").vtsls.setup {
-
-        }
-
-        vim.lsp.config.vtsls = {
-            root_markers = { 'tsconfig.json' },
-            filetypes = { 'js', 'ts', 'jsx', 'tsx' }
-        }
-
-        end,
-    },
-
-    -- ⌨️ Auto Completion: nvim-cmp
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
@@ -91,7 +30,7 @@ return {
                             else
                                 fallback()
                                 vim.notify("fallback", vim.log.levels.info, { title = "fallback" })
-                                end
+                            end
                 end, { 'i', 's' }),
                 ['<S-Tab>'] = cmp.mapping(function(fallback)
                     if cmp.visible() then
@@ -100,7 +39,7 @@ return {
                             luasnip.jump(-1)
                             else
                                 fallback()
-                                end
+                            end
                 end, { 'i', 's' }),
             }),
             sources = cmp.config.sources({

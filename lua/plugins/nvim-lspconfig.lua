@@ -21,7 +21,8 @@ return{
                             vim.lsp.buf.code_action({
                                 apply = true,
                                 context = {
-                                    only = { "source.addMissingImports.ts" },
+                                    only = { "source.addMissingImports.ts", "source.removeUnused.ts", "source.fixAll.ts", "typescript.restartTsServer"
+                                    },
                                     diagnostics = {},
                                 },
                             })
